@@ -16,6 +16,8 @@ var generateCmd = &cobra.Command{
     Long:  `Generate commit message for the current git changes.`,
     Run: func(cmd *cobra.Command, args []string) {
         length, _ := cmd.Flags().GetInt("length")
+        allowPrefix, _ := cmd.Flags().GetBool("prefix")
+
         if length <= 0 {
             fmt.Println("Length must be a positive integer.")
             return
@@ -31,10 +33,11 @@ var generateCmd = &cobra.Command{
             return
         }
 
-        ai.GetResponse(gitDiffData, length)
+        ai.GetResponse(gitDiffData, length, allowPrefix)
     },
 }
 
 func init() {
     generateCmd.Flags().IntP("length", "l", 0, "Length of the random text to generate")
+    generateCmd.Flags().BoolP("prefix","p", false, "Allow conventional prefix to beginning of a commit message")
 }

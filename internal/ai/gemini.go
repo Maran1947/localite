@@ -10,18 +10,24 @@ import (
 	"google.golang.org/api/option"
 )
 
-func getPrompt(gitDiffData string, length int) string {
-	return fmt.Sprintf(`Write a commit message summarizing the following git diff changes in a concise manner, limited to %d characters. Aim to capture the key updates, improvements, or fixes reflected in the diff. Use clear and descriptive language, and avoid unnecessary details.
+func getPrompt(gitDiffData string, length int, allowPrefix bool) string {
+	prefixDetails := "Allow prefixes (docs, style, refactor, perf, test, build, ci, chore, revert, feat, fix)."
+	if !allowPrefix { 
+		prefixDetails = "Don't use any prefixes including (docs, style, refactor, perf, test, build, ci, chore, revert, feat, fix)."
+	}
 
-	Git diff:
-	%s
-	
-	Commit message (within %d characters):`, length, gitDiffData, length)
+	return fmt.Sprintf(`Write a commit message summarizing the following git diff changes in a concise manner, limited to %d characters. Use clear and descriptive language, and avoid unnecessary details. Only give the commit message and no explanation of that message.
+%s
+
+Git diff:
+%s
+
+Commit message (within %d characters):`, length, prefixDetails, gitDiffData, length) 
 }
 
-func GetResponse(gitDiffData string, length int) (string, error) {
+func GetResponse(gitDiffData string, length int, allowPrefix bool) (string, error) {
 	ctx := context.Background()
-	configData, err:= config.LoadConfig()
+	configData, err := config.LoadConfig()
 	if err != nil {
 		return "", err
 	}
@@ -33,12 +39,12 @@ func GetResponse(gitDiffData string, length int) (string, error) {
 	defer client.Close()
 
 	model := client.GenerativeModel("gemini-1.5-flash")
-	prompt := getPrompt(gitDiffData, length)
+	prompt := getPrompt(gitDiffData, length, allowPrefix)
 
-    response, err := model.GenerateContent(ctx, genai.Text(prompt))
-    if err != nil {
-        log.Fatal(err)
-    }
+	response, err := model.GenerateContent(ctx, genai.Text(prompt))
+	if err != nil {
+		log.Fatal(err)
+	}
 
 	if len(response.Candidates) == 0 || len(response.Candidates[0].Content.Parts) == 0 {
 		return "", fmt.Errorf("no response received from the model")
@@ -48,4 +54,4 @@ func GetResponse(gitDiffData string, length int) (string, error) {
 	fmt.Println(response.Candidates[0].Content.Parts[0])
 
 	return "", nil
-} 
+}
