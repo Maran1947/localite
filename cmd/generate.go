@@ -5,6 +5,7 @@ import (
 	"os"
 	"strings"
 
+	"github.com/maran1947/localite/internal/ai"
 	"github.com/maran1947/localite/internal/utils"
 	"github.com/spf13/cobra"
 )
@@ -24,7 +25,13 @@ var generateCmd = &cobra.Command{
             fmt.Fprintf(os.Stderr, "Error: %v\n", err)
             os.Exit(1)
         }
-        fmt.Println("Git Diff:", gitDiffData)
+        
+        if len(gitDiffData) == 0 {
+            fmt.Println("There is not git changes found!")
+            return
+        }
+
+        ai.GetResponse(gitDiffData, length)
     },
 }
 

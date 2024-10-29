@@ -8,8 +8,6 @@ import (
 	"github.com/maran1947/localite/internal/utils"
 )
 
-const configDirName = ".localite"
-
 type Config struct {
 	GeminiApiKey string `json:"GEMINI_API_KEY"`
 }
