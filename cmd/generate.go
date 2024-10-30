@@ -35,8 +35,9 @@ var generateCmd = &cobra.Command{
 		}
 
 		commitText, err := ai.GetResponse(gitDiffData, length, allowPrefix)
-		fmt.Println("[Generated commit message]")
-		fmt.Println(commitText)
+		fmt.Println("----------: Generated commit message :----------")
+		fmt.Print(commitText)
+		fmt.Println("------------------------------------------------")
 
 		if err != nil {
 			fmt.Println("Error occurred in generating commit message: ", err)
@@ -56,7 +57,6 @@ var generateCmd = &cobra.Command{
 				fmt.Fprintf(os.Stderr, "Failed to commit: %v\n", err)
 				os.Exit(1)
 			}
-			fmt.Println("Commit successful!")
 			os.Exit(0)
 		case "no":
 			os.Exit(0)

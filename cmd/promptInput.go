@@ -22,6 +22,7 @@ func PromptGetSelect(pc promptContent) string {
         prompt := promptui.Select{
             Label:    pc.label,
             Items:    items,
+            HideSelected: true,
         }
 
         index, result, err = prompt.Run()
@@ -35,8 +36,5 @@ func PromptGetSelect(pc promptContent) string {
         fmt.Printf("Prompt failed %v\n", err)
         os.Exit(1)
     }
-
-    fmt.Printf("Input: %s\n", result)
-
     return result
 }
