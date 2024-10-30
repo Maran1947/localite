@@ -102,8 +102,38 @@ var delCmd = &cobra.Command{
 	},
 }
 
+var getCmd = &cobra.Command{
+	Use:   "get KEY",
+	Short: "get a value of a given key from configuration",
+	Run: func(cmd *cobra.Command, args []string) {
+
+		if len(args) < 1 {
+			fmt.Println("Please provide the key.")
+			return
+		}
+
+		key := args[0]
+
+		localiteConfig, err := config.LoadConfig()
+		if err != nil {
+			fmt.Fprintf(os.Stderr, "Error loading config: %v\n", err)
+			os.Exit(1)
+		}
+
+		value, exists := localiteConfig.GetConfigValue(key)
+		if !exists {
+			fmt.Printf("Given key '%s' doesn not exists.\n", key)
+			os.Exit(1)
+		}
+
+		fmt.Println(value)
+		os.Exit(0)
+	},
+}
+
 func init() {
 	configCmd.PersistentFlags().BoolP("list", "l", false, "Displays the current configurations for the Localite tool")
 	configCmd.AddCommand(setCmd)
 	configCmd.AddCommand(delCmd)
+	configCmd.AddCommand(getCmd)
 }
