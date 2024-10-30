@@ -23,7 +23,7 @@ var generateCmd = &cobra.Command{
 			return
 		}
 
-		gitDiffData, err := utils.GetGitDiff(strings.Join(args, " "))
+		gitDiffData, err := utils.RunGitDiff(strings.Join(args, " "))
 		if err != nil {
 			fmt.Fprintf(os.Stderr, "Error: %v\n", err)
 			os.Exit(1)
