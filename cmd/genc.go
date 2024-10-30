@@ -4,10 +4,12 @@ import (
 	"fmt"
 	"os"
 	"strings"
+	"time"
 
 	"github.com/maran1947/localite/internal/ai"
 	"github.com/maran1947/localite/internal/utils"
 	"github.com/spf13/cobra"
+	"github.com/briandowns/spinner"
 )
 
 var generateCmd = &cobra.Command{
@@ -23,6 +25,8 @@ var generateCmd = &cobra.Command{
 			return
 		}
 
+		s := spinner.New(spinner.CharSets[9], 100*time.Millisecond)
+		s.Start()  
 		gitDiffData, err := utils.RunGitDiff(strings.Join(args, " "))
 		if err != nil {
 			fmt.Fprintf(os.Stderr, "Error: %v\n", err)
@@ -35,9 +39,9 @@ var generateCmd = &cobra.Command{
 		}
 
 		commitText, err := ai.GetResponse(gitDiffData, length, allowPrefix)
-		fmt.Println("----------: Generated commit message :----------")
-		fmt.Print(commitText)
-		fmt.Println("------------------------------------------------")
+
+		s.Stop()
+		displayCommitMessage(commitText)
 
 		if err != nil {
 			fmt.Println("Error occurred in generating commit message: ", err)
@@ -65,6 +69,12 @@ var generateCmd = &cobra.Command{
 			os.Exit(1)
 		}
 	},
+}
+
+func displayCommitMessage(message string) {
+	fmt.Println("----------: Generated commit message :----------")
+	fmt.Print(message)
+	fmt.Println("------------------------------------------------")
 }
 
 func init() {
