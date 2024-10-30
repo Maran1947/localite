@@ -32,7 +32,12 @@ func GetResponse(gitDiffData string, length int, allowPrefix bool) (string, erro
 		return "", err
 	}
 
-	client, err := genai.NewClient(ctx, option.WithAPIKey(configData.GeminiApiKey))
+	geminiApiKey, isExists := configData.GetConfigValue("GEMINI_API_KEY")
+	if !isExists {
+		return "", fmt.Errorf("No Gemini API key exists. Please ensure the [GEMINI_API_KEY] is defined in your localite configuration.")
+	}
+
+	client, err := genai.NewClient(ctx, option.WithAPIKey(geminiApiKey))
 	if err != nil {
 		log.Fatal(err)
 	}
