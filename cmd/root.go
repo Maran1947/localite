@@ -7,7 +7,7 @@ import (
     "github.com/spf13/cobra"
 )
 
-const latestVersion = "1.0.0"
+const latestVersion = "v1.0.0"
 
 var rootCmd = &cobra.Command{
 	Use:   "localite",
@@ -16,7 +16,7 @@ var rootCmd = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 		versionFlag, _:= cmd.Flags().GetBool("version")
 		if versionFlag {
-			fmt.Printf("Localite CLI version: %s\n", latestVersion)
+			fmt.Print(latestVersion)
             os.Exit(0)
 		}
 		cmd.Help()

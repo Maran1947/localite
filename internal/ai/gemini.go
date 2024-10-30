@@ -37,7 +37,7 @@ func GetResponse(gitDiffData string, length int, allowPrefix bool) (string, erro
 		log.Fatal(err)
 	}
 	defer client.Close()
-
+	
 	model := client.GenerativeModel("gemini-1.5-flash")
 	prompt := getPrompt(gitDiffData, length, allowPrefix)
 
@@ -50,8 +50,7 @@ func GetResponse(gitDiffData string, length int, allowPrefix bool) (string, erro
 		return "", fmt.Errorf("no response received from the model")
 	}
 
-	fmt.Println("Generated commit message:")
-	fmt.Println(response.Candidates[0].Content.Parts[0])
+	commitText := fmt.Sprint(response.Candidates[0].Content.Parts[0])
 
-	return "", nil
+	return commitText, nil
 }
