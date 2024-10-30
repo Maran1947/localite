@@ -11,7 +11,7 @@ import (
 )
 
 var generateCmd = &cobra.Command{
-	Use:   "generate",
+	Use:   "genc",
 	Short: "Generate commit message",
 	Long:  `Generate commit message for the current git changes.`,
 	Run: func(cmd *cobra.Command, args []string) {
