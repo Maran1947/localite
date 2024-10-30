@@ -16,7 +16,7 @@ func getPrompt(gitDiffData string, length int, allowPrefix bool) string {
 		prefixDetails = "Don't use any prefixes including (docs, style, refactor, perf, test, build, ci, chore, revert, feat, fix)."
 	}
 
-	return fmt.Sprintf(`Write a commit message summarizing the following git diff changes in a concise manner, limited to %d characters. Use clear and descriptive language, and avoid unnecessary details. Only give the commit message and no explanation of that message.
+	return fmt.Sprintf(`Write a commit message summarizing the following git diff changes in a concise manner, limited to %d characters. Use clear and descriptive language, and avoid unnecessary details. Only give the commit message in lowercase letters and no explanation of that message.
 %s
 
 Git diff:

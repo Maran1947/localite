@@ -6,7 +6,12 @@ import (
 )
 
 func GetGitDiff(flags string) (string, error) {
-	cmdArgs := []string{"diff","."}
+	err := RunGitAdd()
+	if err != nil {
+		return "", err
+	}
+
+	cmdArgs := []string{"diff","--cached"}
 	if flags != "" {
         cmdArgs = append(cmdArgs, strings.Fields(flags)...)
     }
