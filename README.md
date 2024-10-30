@@ -1,9 +1,6 @@
 
 # Localite
-
-Localite is an **AI-powered Go CLI** tool designed to empower developers by automating commit messages, streamlining workflows, and enhancing collaboration.
-
----
+Localite is an **AI-powered Go CLI** tool designed to empower developers by automating commit messages and managing local dev environment configurations.
 
 ## 🚀 Features
 
@@ -11,7 +8,6 @@ Localite is an **AI-powered Go CLI** tool designed to empower developers by auto
 - **Manage Keys Configuration**: Easily manage your configuration keys.
 - **New Features Coming Soon**: Stay tuned for more exciting features and enhancements!
 
----
 
 ## 🛠 Built With
 
@@ -19,7 +15,6 @@ Localite is an **AI-powered Go CLI** tool designed to empower developers by auto
 - **Cobra**: A powerful library for creating command-line applications in Go.
 - **Gemini AI**: Leveraging advanced AI capabilities for intelligent commit message generation.
 
----
 
 ## 📦 Installation
 
@@ -39,8 +34,10 @@ Alternatively, you can download the pre-built binaries from the [releases page](
 ## 📝 Usage
 
 ### Command Overview
+For detailed usage, run `localite -h` or `localite --help`.
 
 ```bash
+localite [flags]
 localite [command]
 ```
 
@@ -48,8 +45,6 @@ localite [command]
 
 - `localite config` - Manage your Localite configuration.
 - `localite genc` - Generate commit messages based on your git diff.
-
-For detailed usage, run `localite -h` or `localite --help`.
 
 ### Example Usage
 
@@ -68,9 +63,7 @@ View configuration settings:
 localite config --list
 ```
 
----
-
-## 🎉 Contributing
+## 🤝 Contributing
 
 We welcome contributions to improve Localite! Please follow these steps to contribute:
 
@@ -81,16 +74,19 @@ We welcome contributions to improve Localite! Please follow these steps to contr
 4. Push to the branch (`git push origin <branch_name>`).
 5. Create a pull request.
 
----
+## ✨ Support Localite’s Development
 
-## 📜 License
+Localite is here to make your local development easier! Your support helps us add new features so developers can spend more time building and less time on repetitive tasks.
+
+By supporting Localite, you’re backing an AI-powered CLI tool that simplifies dev environment management and automates commit messages—making life easier for developers.
+
+If you believe in Localite’s mission and find it helpful, please consider showing your support! Whether it’s starring the repo, contributing, or sharing with others, _every bit counts_. Together, we can create something remarkable.
+
+☕️ **[Buy Me a Coffee](https://www.buymeacoffee.com/abhishekmaran)**  
+⭐️ **Don’t forget to star the repo on GitHub!**
+
+Thank you for joining us on this journey! Together, we have a long way to go!
+
+## 🛡️ License
 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
-
----
-
-
-
----
-
-Thank you for using Localite! We hope it enhances your development experience. Happy coding! 🎉
