@@ -7,7 +7,7 @@ import (
 	"github.com/spf13/cobra"
 )
 
-const latestVersion = "v1.0.0"
+const latestVersion = "v0.1.0"
 
 var rootCmd = &cobra.Command{
 	Use:   "localite",
