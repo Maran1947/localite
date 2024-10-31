@@ -22,3 +22,18 @@ func GetConfigFilePath() (string, error) {
 	configFilePath := filepath.Join(configDir, configFileName)
 	return configFilePath, nil
 }
+
+func PushToFile(filePath string, keys []string) error {
+	file, err := os.OpenFile(filePath, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
+	if err != nil {
+		return err
+	}
+	defer file.Close()
+
+	for _, key := range keys {
+		if _, err := file.WriteString(key + "\n"); err != nil {
+			return err
+		}
+	}
+	return nil
+}

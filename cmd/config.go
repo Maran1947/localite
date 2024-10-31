@@ -7,6 +7,7 @@ import (
 	"strings"
 
 	"github.com/maran1947/localite/internal/config"
+	"github.com/maran1947/localite/internal/utils"
 	"github.com/spf13/cobra"
 )
 
@@ -88,7 +89,6 @@ var delCmd = &cobra.Command{
 			os.Exit(1)
 		}
 
-		fmt.Println("key: ", key)
 		localiteConfig.DeleteConfigValue(key)
 
 		err = config.UpdateConfig(*localiteConfig)
@@ -131,9 +131,54 @@ var getCmd = &cobra.Command{
 	},
 }
 
+var pushCmd = &cobra.Command{
+	Use: "push -f <file_path> <keys>",
+	Short: "Save the provided keys to the specified file.",
+	Run: func(cmd *cobra.Command, args []string) {
+		file, _ := cmd.Flags().GetString("file")
+		keys, _ := cmd.Flags().GetBool("keys")
+
+		if file == "" {
+			fmt.Println("Please specify the file path.")
+			os.Exit(1)	
+		}
+
+		if !keys || len(args) < 1 {
+			fmt.Println("Please provide the keys using the -k flag followed by keys (e.g., -k KEY1 KEY2 ... KEYN).")
+			os.Exit(1)	
+		} 
+
+		localiteConfig, err := config.LoadConfig()
+		if err != nil {
+			fmt.Fprintf(os.Stderr, "Error in loading config: %v\n", err)
+			os.Exit(1)
+		}
+
+		var userKeys []string
+		for _, key := range args {
+			if value, exists := localiteConfig.GetConfigValue(key); exists {
+				entry := fmt.Sprintf("%s=%s", key, value)
+				userKeys = append(userKeys, entry)
+			}
+		}	
+
+		pushError := utils.PushToFile(file, userKeys)
+		if pushError != nil {
+			fmt.Printf("Failed to push keys: %v\n", pushError)
+			os.Exit(1)
+		}
+
+		fmt.Printf("Keys %v pushed to file: %s", args, file)
+		os.Exit(0)
+	},
+}
+
 func init() {
 	configCmd.PersistentFlags().BoolP("list", "l", false, "Displays the current configurations for the Localite tool")
+	pushCmd.PersistentFlags().StringP("file", "f", "", "File where keys will be push")
+	pushCmd.PersistentFlags().BoolP("keys", "k", false, "Provided keys")
 	configCmd.AddCommand(setCmd)
 	configCmd.AddCommand(delCmd)
 	configCmd.AddCommand(getCmd)
+	configCmd.AddCommand(pushCmd)
 }
