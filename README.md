@@ -59,6 +59,7 @@ If you believe in Localite’s mission and find it helpful, please consider show
 </p>
 
 ⭐️ **Don’t forget to star the repo on GitHub!**
+<br/>
 Thank you for joining us on this journey! Together, we have a long way to go!
 
 ## 🛡️ License
