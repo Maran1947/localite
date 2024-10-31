@@ -104,7 +104,7 @@ var delCmd = &cobra.Command{
 
 var getCmd = &cobra.Command{
 	Use:   "get KEY",
-	Short: "get a value of a given key from configuration",
+	Short: "Get a value of a given key from configuration",
 	Run: func(cmd *cobra.Command, args []string) {
 
 		if len(args) < 1 {

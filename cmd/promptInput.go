@@ -33,7 +33,7 @@ func PromptGetSelect(pc promptContent) string {
 	}
 
 	if err != nil {
-		fmt.Printf("Prompt failed %v\n", err)
+		fmt.Printf("User input select prompt failed %v\n", err)
 		os.Exit(1)
 	}
 	return result

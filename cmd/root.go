@@ -11,8 +11,8 @@ const latestVersion = "v1.0.0"
 
 var rootCmd = &cobra.Command{
 	Use:   "localite",
-	Short: "Localite CLI for local development functionalities",
-	Long:  `A powerful CLI tool for handling local development functionalities, including config management and text generation.`,
+	Short: "Localite CLI simplifies secret management and generates meaningful commit messages.",
+	Long:  `A powerful CLI tool for handling local development functionalities, including config management and AI-powered commit generation.`,
 	Run: func(cmd *cobra.Command, args []string) {
 		versionFlag, _ := cmd.Flags().GetBool("version")
 		if versionFlag {
