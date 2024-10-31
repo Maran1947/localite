@@ -6,10 +6,10 @@ import (
 	"strings"
 	"time"
 
+	"github.com/briandowns/spinner"
 	"github.com/maran1947/localite/internal/ai"
 	"github.com/maran1947/localite/internal/utils"
 	"github.com/spf13/cobra"
-	"github.com/briandowns/spinner"
 )
 
 var generateCmd = &cobra.Command{
@@ -26,7 +26,7 @@ var generateCmd = &cobra.Command{
 		}
 
 		s := spinner.New(spinner.CharSets[9], 100*time.Millisecond)
-		s.Start()  
+		s.Start()
 		gitDiffData, err := utils.RunGitDiff(strings.Join(args, " "))
 		if err != nil {
 			fmt.Fprintf(os.Stderr, "Error: %v\n", err)

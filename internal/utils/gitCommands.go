@@ -7,7 +7,7 @@ import (
 )
 
 func RunGitAdd() error {
-	args := []string{"add","."}
+	args := []string{"add", "."}
 	cmd := exec.Command("git", args...)
 
 	cmd.Stdout = os.Stdout
@@ -22,23 +22,23 @@ func RunGitDiff(flags string) (string, error) {
 		return "", err
 	}
 
-	cmdArgs := []string{"diff","--cached"}
+	cmdArgs := []string{"diff", "--cached"}
 	if flags != "" {
-        cmdArgs = append(cmdArgs, strings.Fields(flags)...)
-    }
+		cmdArgs = append(cmdArgs, strings.Fields(flags)...)
+	}
 
 	cmd := exec.Command("git", cmdArgs...)
 
 	output, err := cmd.Output()
-    if err != nil {
-        return "", err
-    }
+	if err != nil {
+		return "", err
+	}
 
 	return string(output), nil
 }
 
 func RunGitCommit(message string) error {
-	args := []string{"commit","-m",message}
+	args := []string{"commit", "-m", message}
 	cmd := exec.Command("git", args...)
 
 	cmd.Stdout = os.Stdout

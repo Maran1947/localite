@@ -12,7 +12,7 @@ import (
 
 func getPrompt(gitDiffData string, length int, allowPrefix bool) string {
 	prefixDetails := "Allow prefixes (docs, style, refactor, perf, test, build, ci, chore, revert, feat, fix)."
-	if !allowPrefix { 
+	if !allowPrefix {
 		prefixDetails = "Don't use any prefixes including (docs, style, refactor, perf, test, build, ci, chore, revert, feat, fix)."
 	}
 
@@ -22,7 +22,7 @@ func getPrompt(gitDiffData string, length int, allowPrefix bool) string {
 Git diff:
 %s
 
-Commit message (within %d characters):`, length, prefixDetails, gitDiffData, length) 
+Commit message (within %d characters):`, length, prefixDetails, gitDiffData, length)
 }
 
 func GetResponse(gitDiffData string, length int, allowPrefix bool) (string, error) {
@@ -42,7 +42,7 @@ func GetResponse(gitDiffData string, length int, allowPrefix bool) (string, erro
 		log.Fatal(err)
 	}
 	defer client.Close()
-	
+
 	model := client.GenerativeModel("gemini-1.5-flash")
 	prompt := getPrompt(gitDiffData, length, allowPrefix)
 

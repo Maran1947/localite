@@ -8,33 +8,33 @@ import (
 )
 
 type promptContent struct {
-    errorMsg string
-    label    string
+	errorMsg string
+	label    string
 }
 
 func PromptGetSelect(pc promptContent) string {
-    items := []string{"yes", "no"}
-    index := -1
-    var result string
-    var err error
+	items := []string{"yes", "no"}
+	index := -1
+	var result string
+	var err error
 
-    for index < 0 {
-        prompt := promptui.Select{
-            Label:    pc.label,
-            Items:    items,
-            HideSelected: true,
-        }
+	for index < 0 {
+		prompt := promptui.Select{
+			Label:        pc.label,
+			Items:        items,
+			HideSelected: true,
+		}
 
-        index, result, err = prompt.Run()
+		index, result, err = prompt.Run()
 
-        if index == -1 {
-            items = append(items, result)
-        }
-    }
+		if index == -1 {
+			items = append(items, result)
+		}
+	}
 
-    if err != nil {
-        fmt.Printf("Prompt failed %v\n", err)
-        os.Exit(1)
-    }
-    return result
+	if err != nil {
+		fmt.Printf("Prompt failed %v\n", err)
+		os.Exit(1)
+	}
+	return result
 }

@@ -15,7 +15,7 @@ func GetConfigFilePath() (string, error) {
 	}
 
 	configDir := filepath.Join(homeDir, configDirName)
-	if err := os.MkdirAll(configDir, 0700); err != nil { 
+	if err := os.MkdirAll(configDir, 0700); err != nil {
 		return "", err
 	}
 

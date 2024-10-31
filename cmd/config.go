@@ -132,7 +132,7 @@ var getCmd = &cobra.Command{
 }
 
 var pushCmd = &cobra.Command{
-	Use: "push -f <file_path> <keys>",
+	Use:   "push -f <file_path> <keys>",
 	Short: "Save the provided keys to the specified file.",
 	Run: func(cmd *cobra.Command, args []string) {
 		file, _ := cmd.Flags().GetString("file")
@@ -140,13 +140,13 @@ var pushCmd = &cobra.Command{
 
 		if file == "" {
 			fmt.Println("Please specify the file path.")
-			os.Exit(1)	
+			os.Exit(1)
 		}
 
 		if !keys || len(args) < 1 {
 			fmt.Println("Please provide the keys using the -k flag followed by keys (e.g., -k KEY1 KEY2 ... KEYN).")
-			os.Exit(1)	
-		} 
+			os.Exit(1)
+		}
 
 		localiteConfig, err := config.LoadConfig()
 		if err != nil {
@@ -160,7 +160,7 @@ var pushCmd = &cobra.Command{
 				entry := fmt.Sprintf("%s=%s", key, value)
 				userKeys = append(userKeys, entry)
 			}
-		}	
+		}
 
 		pushError := utils.PushToFile(file, userKeys)
 		if pushError != nil {
